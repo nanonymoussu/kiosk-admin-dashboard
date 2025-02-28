@@ -23,7 +23,7 @@ A Next.js-based admin dashboard for managing kiosks.
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/kiosk-admin-dashboard.git
+git clone https://github.com/nanonymoussu/kiosk-admin-dashboard.git
 cd kiosk-admin-dashboard
 ```
 
