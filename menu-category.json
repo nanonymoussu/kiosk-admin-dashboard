@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "nameTH": "อาหารจานหลัก",
+    "nameEN": "Main Dish",
+    "createdAt": "2025-02-21T15:39:36.999Z",
+    "updatedAt": "2025-02-21T15:39:36.999Z"
+  },
+  {
+    "id": 2,
+    "nameTH": "เครื่องดื่ม",
+    "nameEN": "Beverage",
+    "createdAt": "2025-02-21T15:39:57.344Z",
+    "updatedAt": "2025-02-21T15:53:19.005Z"
+  }
+]

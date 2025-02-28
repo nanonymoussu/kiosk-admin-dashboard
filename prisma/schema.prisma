@@ -1,0 +1,155 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String
+  role      Role     @default(manager)
+  branchId  Int?
+  branch    Branch?  @relation(fields: [branchId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Role {
+  admin
+  manager
+}
+
+model Branch {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  manager   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users        User[]
+  orderHistory OrderHistory[]
+}
+
+model MenuCategory {
+  id        Int        @id @default(autoincrement())
+  nameTH    String
+  nameEN    String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  menuItems MenuItem[]
+}
+
+model MenuItem {
+  id             Int           @id @default(autoincrement())
+  nameTH         String
+  nameEN         String
+  price          Float
+  image          String?
+  menuCategory   MenuCategory? @relation(fields: [menuCategoryId], references: [id])
+  menuCategoryId Int?
+  orderOptions   OrderOption[]
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  bom            BOM?
+}
+
+model OrderOption {
+  id         Int                 @id @default(autoincrement())
+  nameTH     String
+  nameEN     String
+  type       String
+  menuItem   MenuItem            @relation(fields: [menuItemId], references: [id])
+  menuItemId Int
+  choices    OrderOptionChoice[]
+}
+
+model OrderOptionChoice {
+  id            Int         @id @default(autoincrement())
+  nameTH        String
+  nameEN        String
+  orderOption   OrderOption @relation(fields: [orderOptionId], references: [id])
+  orderOptionId Int
+  bom           BOM?
+}
+
+model OrderHistory {
+  id            Int                @id @default(autoincrement())
+  orderId       String
+  date          DateTime           @default(now())
+  time          String
+  totalQuantity Int
+  totalPrice    Float
+  deliveryType  String
+  status        String
+  branchId      Int?
+  branch        Branch?            @relation(fields: [branchId], references: [id])
+  items         OrderHistoryItem[]
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+}
+
+model OrderHistoryItem {
+  id             Int          @id @default(autoincrement())
+  orderHistory   OrderHistory @relation(fields: [orderHistoryId], references: [id])
+  orderHistoryId Int
+  menuName       String
+  category       String
+  quantity       Int
+  price          Float
+  options        Json         @default("{}")
+}
+
+model TempOrder {
+  id            String @id
+  date          String
+  time          String
+  totalQuantity Int
+  totalPrice    Int
+  deliveryType  String
+  status        String
+  items         Json
+}
+
+model InventoryItem {
+  id            Int             @id @default(autoincrement())
+  name          String
+  quantity      Float
+  unit          String
+  reorderPoint  Float
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  BOMIngredient BOMIngredient[]
+}
+
+model BOM {
+  id             Int                @id @default(autoincrement())
+  name           String
+  menuItem       MenuItem?          @relation(fields: [menuItemId], references: [id])
+  menuItemId     Int?
+  optionChoice   OrderOptionChoice? @relation(fields: [optionChoiceId], references: [id])
+  optionChoiceId Int?
+  ingredients    BOMIngredient[]
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+
+  @@unique([menuItemId])
+  @@unique([optionChoiceId])
+}
+
+model BOMIngredient {
+  id          Int           @id @default(autoincrement())
+  bom         BOM           @relation(fields: [bomId], references: [id])
+  bomId       Int
+  inventory   InventoryItem @relation(fields: [inventoryId], references: [id])
+  inventoryId Int
+  quantity    Float
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@unique([bomId, inventoryId])
+}
