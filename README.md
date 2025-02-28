@@ -87,16 +87,29 @@ npm start
 To deploy to GitHub Pages:
 
 1. Push your code to GitHub
-2. Enable GitHub Pages in your repository settings
-3. The GitHub Actions workflow will automatically build and deploy your site
+2. Enable GitHub Pages in your repository settings:
+   - Go to your repository → Settings → Pages
+   - Set source to "GitHub Actions"
 
-You can also manually trigger a deployment:
+3. The GitHub Actions workflow will automatically build and deploy your site when you push to the main branch.
+
+### Important Notes About Static Export
+
+When deploying to GitHub Pages:
+
+- The app is exported as static HTML/JS/CSS files
+- Dynamic API routes won't work - data should be pre-rendered or fetched from external APIs
+- Server-side functions aren't available
+- For full functionality, consider deploying to a platform that supports Next.js server components and API routes
+
+### Testing Static Export Locally
 
 ```bash
-# Build for static export
-NEXT_OUTPUT=export npm run build
+# Build static export
+npm run export
 
-# The output will be in the 'out' directory, which can be deployed to GitHub Pages
+# Serve the static files locally
+npx serve out
 ```
 
 ## Project Structure

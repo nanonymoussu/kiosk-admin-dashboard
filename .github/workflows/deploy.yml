@@ -35,8 +35,16 @@ jobs:
       - name: Generate Prisma client
         run: npx prisma generate
 
-      - name: Build with Next.js
-        run: NEXT_OUTPUT=export npm run build
+      - name: Build static site
+        run: npm run export
+        env:
+          # Set the repository name as base path for GitHub Pages
+          NEXT_BASE_PATH: '/${{ github.event.repository.name }}'
+          # Skip JWT-related errors during build
+          NODE_OPTIONS: '--no-warnings'
+
+      - name: Copy .nojekyll file
+        run: touch ./out/.nojekyll
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2

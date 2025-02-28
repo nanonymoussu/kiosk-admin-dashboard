@@ -10,7 +10,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "export": "NEXT_OUTPUT=export next build"
+    "export": "NEXT_OUTPUT=export NEXT_BUILD_EXCLUDE_API=1 next build"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
