@@ -39,20 +39,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-# docker
-.docker/
-docker-compose.override.yml
-
-# IDE
-.idea/
-.vscode/
-
-# Generated Prisma client
-/prisma/generated/
-
-# Local development data
-/data/
-
-# Static export
-/out/
