@@ -32,6 +32,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install cross-env
+        run: npm install cross-env --save
+
       - name: Generate Prisma client
         run: npx prisma generate
 
@@ -40,8 +43,7 @@ jobs:
         env:
           # Set the repository name as base path for GitHub Pages
           NEXT_BASE_PATH: '/${{ github.event.repository.name }}'
-          # Skip JWT-related errors during build
-          NODE_OPTIONS: '--no-warnings'
+          NEXT_PUBLIC_BASE_PATH: '/${{ github.event.repository.name }}'
 
       - name: Copy .nojekyll file
         run: touch ./out/.nojekyll

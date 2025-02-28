@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "name": "Signature Burger",
+    "price": 9.99,
+    "image": "/images/placeholder-food.jpg",
+    "sales": 145
+  },
+  {
+    "id": 2,
+    "name": "Chicken Wrap",
+    "price": 7.99,
+    "image": "/images/placeholder-food.jpg",
+    "sales": 120
+  },
+  {
+    "id": 3,
+    "name": "Veggie Bowl",
+    "price": 8.49,
+    "image": "/images/placeholder-food.jpg",
+    "sales": 98
+  },
+  {
+    "id": 4,
+    "name": "Classic Fries",
+    "price": 3.99,
+    "image": "/images/placeholder-food.jpg",
+    "sales": 87
+  }
+]
