@@ -51,7 +51,7 @@
     "cmdk": "1.0.4",
     "date-fns": "latest",
     "embla-carousel-react": "8.5.1",
-    "formidable": "^3.5.2",
+    "formidable": "^3.5.4",
     "framer-motion": "^12.4.7",
     "input-otp": "1.4.1",
     "jose": "^5.10.0",
